@@ -34,16 +34,17 @@ const App = () => {
     fetch();
   };
 
+  const toggleIsDone = async (id, index) => {
+    const isDone = tasks[index].is_done;
+    await axios.put(`http://localhost:3010/tasks/${id}`, {
+      is_done: !isDone,
+    });
+    fetch();
+  };
+
   useEffect(() => {
     fetch();
   }, []);
-
-  const toggleIsDone = (index) => {
-    const tasksCopy = [...tasks];
-    const isDone = tasksCopy[index].isDone;
-    tasksCopy[index].isDone = !isDone;
-    setTasks(tasksCopy);
-  };
 
   return (
     <Box mt="64px">
@@ -59,7 +60,7 @@ const App = () => {
               placeholder="タスク名を入力"
               value={name}
               onChange={(e) => setName(e.target.value)}
-            ></Input>
+            />
             <Box ml="16px">
               <Button colorScheme="teal" onClick={createTask}>
                 タスクを作成
@@ -74,7 +75,7 @@ const App = () => {
                   key={index}
                   index={index}
                   name={task.name}
-                  isDone={task.isDone}
+                  isDone={task.is_done}
                   toggleIsDone={toggleIsDone}
                   destroyTask={destroyTask}
                 />
