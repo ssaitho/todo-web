@@ -23,7 +23,6 @@ const App = () => {
   const createTask = async () => {
     await axios.post("http://localhost:3010/tasks", {
       name: name,
-      is_done: false,
     });
     setName("");
     fetch();
